@@ -6,7 +6,7 @@
   model selection for chain graphs.  SIN assumes that 
   a dependence chain or blocking of the variables is available.  
 }
-\usage{sinCG(blocks, S, n, type="AMP")}
+\usage{sinCG(blocks, S, n, type="AMP", holm=TRUE)}
 \arguments{
   \item{blocks}{a list of integer vectors with entries amongst
     \eqn{1,\ldots,p} where \eqn{p} is the number of variables.  Each one
@@ -21,6 +21,8 @@
     determines whether the chain graph is interpreted with respect to
     the Andersson, Madigan, Perlman Markov property or the Lauritzen,
     Wermuth, Frydenberg Markov property.}
+  \item{holm}{Boolean variable indicating whether Holm's p-value
+    adjustment should be used (holm=TRUE) or not (holm=FALSE).}
 }
 \value{
   A matrix of simultaneous p-values with \code{NA} on the diagonal.
@@ -53,8 +55,8 @@ p <- dim(fowlbones$corr)[1]
 blocks <- list(1:2,3:4,5:6)
 sinCG(blocks,fowlbones$corr,fowlbones$n, type="AMP")
 sinCG(blocks,fowlbones$corr,fowlbones$n, type="LWF")
-holm(sinCG(blocks,fowlbones$corr,fowlbones$n, type="AMP"))
-holm(sinCG(blocks,fowlbones$corr,fowlbones$n, type="LWF"))
+sinCG(blocks,fowlbones$corr,fowlbones$n, type="AMP", holm=FALSE)
+sinCG(blocks,fowlbones$corr,fowlbones$n, type="LWF", holm=FALSE)
 }
 \keyword{multivariate}
 

@@ -5,10 +5,12 @@
   This function computes the matrix of simultaneous p-values for SIN
   model selection for undirected (or concentration) graphs.
 }
-\usage{sinUG(S,n)}
+\usage{sinUG(S,n,holm=TRUE)}
 \arguments{
   \item{S}{a covariance or correlation matrix.}
   \item{n}{the sample size.}
+  \item{holm}{Boolean variable indicating whether Holm's p-value
+    adjustment should be used (holm=TRUE) or not (holm=FALSE).}
 }
 \value{
   A matrix of simultaneous p-values with \code{NA} on the diagonal.
@@ -31,6 +33,6 @@
 \examples{
 data(fowlbones)
 sinUG(fowlbones$corr,fowlbones$n)
-holm(sinUG(fowlbones$corr,fowlbones$n))
+sinUG(fowlbones$corr,fowlbones$n, holm=FALSE)
 }
 \keyword{multivariate}

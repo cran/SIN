@@ -5,10 +5,12 @@
   This function computes the matrix of simultaneous p-values for SIN
   model selection for bidirected (or covariance) graphs.
 }
-\usage{sinBG(S,n)}
+\usage{sinBG(S,n,holm=TRUE)}
 \arguments{
   \item{S}{a covariance or correlation matrix.}
-  \item{n}{the sample size.}
+  \item{n}{the sample size,}
+  \item{holm}{Boolean variable indicating whether Holm's p-value
+    adjustment should be used (holm=TRUE) or not (holm=FALSE).}
 }
 \value{
   A matrix of simultaneous p-values with \code{NA} on the diagonal.
@@ -31,7 +33,7 @@
 \examples{
 data(stressful)
 sinBG(stressful$corr,stressful$n)
-holm(sinBG(stressful$corr,stressful$n))
+sinBG(stressful$corr,stressful$n,holm=FALSE)
 }
 \keyword{multivariate}
 

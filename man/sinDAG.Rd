@@ -7,7 +7,7 @@
   a total ordering of the variables is available (e.g., as a
   time-order). 
 }
-\usage{sinDAG(order,S,n)}
+\usage{sinDAG(order,S,n,holm=TRUE)}
 \arguments{
   \item{order}{a list of pairwise different integers amongst
     \eqn{1,\ldots,p} where \eqn{p} is the number of variables.  This
@@ -15,6 +15,8 @@
     a list element is smaller than succeeding list elements.}
   \item{S}{a covariance or correlation matrix.}
   \item{n}{the sample size.}
+  \item{holm}{Boolean variable indicating whether Holm's p-value
+    adjustment should be used (holm=TRUE) or not (holm=FALSE).}
 }
 \value{
   A matrix of simultaneous p-values with \code{NA} on the diagonal.
@@ -38,7 +40,7 @@
 data(fowlbones)
 p <- dim(fowlbones$corr)[1]
 sinDAG(list(1:p),fowlbones$corr,fowlbones$n)
-holm(sinDAG(list(1:p),fowlbones$corr,fowlbones$n))
+sinDAG(list(1:p),fowlbones$corr,fowlbones$n,holm=FALSE)
 sinDAG(list(3,2,1,4,5,6),fowlbones$corr,fowlbones$n)
 }
 \keyword{multivariate}

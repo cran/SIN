@@ -5,7 +5,7 @@
   This function plots the simultaneous p-values for SIN
   model selection for chain graphs.
 }
-\usage{plotCGpvalues(blocks, pvals, legend=T, legendpos=NULL)}
+\usage{plotCGpvalues(blocks, pvals, legend=TRUE, legendpos=NULL)}
 \arguments{
   \item{blocks}{a list of integer vectors with entries amongst
     \eqn{1,\ldots,p} where \eqn{p} is the number of variables.  Each one
@@ -44,8 +44,8 @@ data(fowlbones)
 blocks <- list(1:2,3:4,5:6)
 pvals <- holm(sinCG(blocks,fowlbones$corr,fowlbones$n, type="AMP"))
 \dontrun{plotCGpvalues(blocks, pvals)}
-\dontrun{plotCGpvalues(blocks, pvals, legend=F)}
+\dontrun{plotCGpvalues(blocks, pvals, legend=FALSE)}
 \dontrun{plotCGpvalues(blocks, pvals, legendpos=c(7,0.5))}
-\dontrun{plotCGpvalues(blocks, pvals, legend=T, legendpos=c(7,0.5))}
+\dontrun{plotCGpvalues(blocks, pvals, legend=TRUE, legendpos=c(7,0.5))}
 }
 \keyword{multivariate}

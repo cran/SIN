@@ -5,7 +5,7 @@
 \description{
 Data from a study by the \emph{U.S. News and World Report} magazine with
 the purpose of college ranking. Druzdzel and Glymour choose 8 variables
-and after removing some universities give a correlation matrix for 170
+and after removing some universities give a correlation matrix for 159
 universities. The 8 variables are:
   \describe{
     \item{\emph{apgra}}{average percentage of graduation, i.e., the

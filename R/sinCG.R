@@ -1,10 +1,11 @@
-sinCG <- function(blocks, S, n, type="AMP"){
+sinCG <- function(blocks, S, n, type="AMP", holm=TRUE){
   if(!is.blocks(blocks, dim(S)[1])){
     return("blocks is not a valid block structure over the variables!")
   }
   ## blocks is now a list of vectors 
   sinAMP <- function(blocks, S, n){
     complete.order <- unlist(blocks)
+    old.order <- dimnames(S)[[1]]
     S <- S[complete.order,complete.order]
     p <- dim(S)[1]
     q <- length(blocks)
@@ -17,7 +18,7 @@ sinCG <- function(blocks, S, n, type="AMP"){
     pvals[1:b[1],1:b[1]] <- simpvalueMx(corr.part,n-b[1]-1)
     ## Loop thru blocks 2 to q
     if(q==1){
-      return(zapsmall(pvals))
+      return(zapsmall(pvals[old.order,old.order]))
     }
     else{
       for(i in 2:q){
@@ -34,12 +35,13 @@ sinCG <- function(blocks, S, n, type="AMP"){
                            n-(b[i-1]+1)-1,b[i-1]+1)
         }
       }
-      return(zapsmall(pvals))
+      return(zapsmall(pvals[old.order,old.order]))
     }
   }
   ## blocks is now a list of vectors 
   sinLWF <- function(blocks, S, n){
     complete.order <- unlist(blocks)
+    old.order <- dimnames(S)[[1]]
     S <- S[complete.order,complete.order]
     p <- dim(S)[1]
     q <- length(blocks)
@@ -52,7 +54,7 @@ sinCG <- function(blocks, S, n, type="AMP"){
     pvals[1:b[1],1:b[1]] <- simpvalueMx(corr.part,n-b[1]-1)
     ## Loop thru blocks 2 to q
     if(q==1){
-      return(zapsmall(pvals))
+      return(zapsmall(pvals[old.order,old.order]))
     }
     else{
       for(i in 2:q){
@@ -62,25 +64,30 @@ sinCG <- function(blocks, S, n, type="AMP"){
           simpvalueMx(corr.part,n-b[i]-1)[(b[i-1]+1):b[i],1:b[i]]
         pvals[1:b[i],(b[i-1]+1):b[i]] <- t(pvals[(b[i-1]+1):b[i],1:b[i]])
       }
-      return(zapsmall(pvals))
+      return(zapsmall(pvals[old.order,old.order]))
     }
   }
   ## Call one of the above functions now
   if(type=="AMP"){
-    return(sinAMP(blocks,S,n))
+    pvals <- sinAMP(blocks,S,n)
   }
   else{
     if(type=="LWF"){
-      return(sinLWF(blocks,S,n))
+    pvals <- sinLWF(blocks,S,n)
     }
     else{
-      print("type must be AMP or LWF (as string)!")
+      return("type must be AMP or LWF (as string)!")
     }
+  }
+  if(holm==TRUE){
+    return(holm(pvals))
+  } else{
+    return(pvals)
   }
 }
 
  
-plotCGpvalues <- function(blocks, pvals, legend=T, legendpos=NULL){
+plotCGpvalues <- function(blocks, pvals, legend=TRUE, legendpos=NULL){
   if(!is.blocks(blocks, dim(pvals)[1])){
     return("blocks is not a valid block structure over the variables!")
   }
@@ -172,7 +179,7 @@ plotCGpvalues <- function(blocks, pvals, legend=T, legendpos=NULL){
   axis(1, at=1:temp, labels=CGlab[1:temp], las=2)
   axis(2, at=seq(0,1,by=0.1), las=1)
   temp2 <- sapply(seq(0,1,by=0.1), abline, 0, lty="dotted", col="grey")
-  plot(as.factor(1:temp), CGpvals, axes=FALSE, add=T) 
+  plot(as.factor(1:temp), CGpvals, axes=FALSE, add=TRUE) 
   box()
   plotlabels <- c()
   for(i in 1:length(blocks)){
@@ -183,7 +190,7 @@ plotCGpvalues <- function(blocks, pvals, legend=T, legendpos=NULL){
   for(i in 1:length(plotlabels)){
     plotlabels[i] <- paste(plotlabels[i],dimnames(pvals)[[1]][i], sep="  ")
   }
-  if(legend==T){
+  if(legend==TRUE){
     if(is.null(legendpos)){
       legend(temp+0.6,1, x.intersp=-0.3, 
              plotlabels, bg="white", xjust=1, yjust=1)

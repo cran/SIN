@@ -5,7 +5,7 @@
   This function plots the simultaneous p-values for SIN
   model selection for acyclic directed graphs (DAGs).
 }
-\usage{plotDAGpvalues(pvals, legend=T, legendpos=NULL)}
+\usage{plotDAGpvalues(pvals, legend=TRUE, legendpos=NULL)}
 \arguments{
   \item{pvals}{a matrix of p-values.}
   \item{legend}{a Boolean.}
@@ -37,8 +37,8 @@ data(fowlbones)
 p <- dim(fowlbones$corr)[1]
 pvals <- holm(sinDAG(list(1:p),fowlbones$corr,fowlbones$n))
 \dontrun{plotDAGpvalues(pvals)}
-\dontrun{plotDAGpvalues(pvals, legend=F)}
+\dontrun{plotDAGpvalues(pvals, legend=FALSE)}
 \dontrun{plotDAGpvalues(pvals, legendpos=c(7,0.5))}
-\dontrun{plotDAGpvalues(pvals, legend=T, legendpos=c(7,0.5))}
+\dontrun{plotDAGpvalues(pvals, legend=TRUE, legendpos=c(7,0.5))}
 }
 \keyword{multivariate}

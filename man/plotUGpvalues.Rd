@@ -5,7 +5,7 @@
   This function plots the simultaneous p-values for SIN
   model selection for undirected graphs.
 }
-\usage{plotUGpvalues(pvals, legend=T, legendpos=NULL)}
+\usage{plotUGpvalues(pvals, legend=TRUE, legendpos=NULL)}
 \arguments{
   \item{pvals}{a matrix of p-values.}
   \item{legend}{a Boolean.}
@@ -36,8 +36,8 @@
 data(fowlbones)
 pvals <- holm(sinUG(fowlbones$corr,fowlbones$n))
 \dontrun{plotUGpvalues(pvals)}
-\dontrun{plotUGpvalues(pvals, legend=F)}
+\dontrun{plotUGpvalues(pvals, legend=FALSE)}
 \dontrun{plotUGpvalues(pvals, legendpos=c(7,0.5))}
-\dontrun{plotUGpvalues(pvals, legend=T, legendpos=c(7,0.5))}
+\dontrun{plotUGpvalues(pvals, legend=TRUE, legendpos=c(7,0.5))}
 }
 \keyword{multivariate}

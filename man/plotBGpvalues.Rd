@@ -5,7 +5,7 @@
   This function plots the simultaneous p-values for SIN
   model selection for bidirected graphs.
 }
-\usage{plotBGpvalues(pvals, legend=T, legendpos=NULL)}
+\usage{plotBGpvalues(pvals, legend=TRUE, legendpos=NULL)}
 \arguments{
   \item{pvals}{a matrix of p-values.}
   \item{legend}{a Boolean.}
@@ -36,8 +36,8 @@
 data(stressful)
 pvals <- holm(sinBG(stressful$corr,stressful$n))
 \dontrun{plotBGpvalues(pvals)}
-\dontrun{plotBGpvalues(pvals, legend=F)}
+\dontrun{plotBGpvalues(pvals, legend=FALSE)}
 \dontrun{plotBGpvalues(pvals, legendpos=c(5,0.5))}
-\dontrun{plotBGpvalues(pvals, legend=T, legendpos=c(5,0.5))}
+\dontrun{plotBGpvalues(pvals, legend=TRUE, legendpos=c(5,0.5))}
 }
 \keyword{multivariate}
