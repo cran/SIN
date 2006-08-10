@@ -15,7 +15,7 @@ sinCG <- function(blocks, S, n, type="AMP", holm=TRUE){
     ## Do block 1 explicitly (since no parents)
     b <- cumsum(unlist(lapply(blocks, length)))
     corr.part <- -cov2cor(solve(S[1:b[1],1:b[1]]))
-    pvals[1:b[1],1:b[1]] <- simpvalueMx(corr.part,n-b[1]-1)
+    pvals[1:b[1],1:b[1]] <- simpvalueMx(corr.part,n-b[1]-1,p)
     ## Loop thru blocks 2 to q
     if(q==1){
       return(zapsmall(pvals[old.order,old.order]))
@@ -25,14 +25,14 @@ sinCG <- function(blocks, S, n, type="AMP", holm=TRUE){
         ## within block i
         corr.part <- -cov2cor(solve(S[1:b[i],1:b[i]]))
         pvals[(b[i-1]+1):b[i],(b[i-1]+1):b[i]] <-
-          simpvalueMx(corr.part[(b[i-1]+1):b[i],(b[i-1]+1):b[i]],n-b[i]-1)
+          simpvalueMx(corr.part[(b[i-1]+1):b[i],(b[i-1]+1):b[i]],n-b[i]-1,p)
         ## block i to strict past
         for(w in (b[i-1]+1):b[i]){
           corr.part <- -cov2cor(solve(S[c(1:b[i-1], w),c(1:b[i-1], w)]))
           pvals[1:b[i-1],w] <-
             pvals[w,1:b[i-1]] <-
               simpvalueVec(corr.part[1:b[i-1],b[i-1]+1],
-                           n-(b[i-1]+1)-1,b[i-1]+1)
+                           n-(b[i-1]+1)-1,p)
         }
       }
       return(zapsmall(pvals[old.order,old.order]))
@@ -51,7 +51,7 @@ sinCG <- function(blocks, S, n, type="AMP", holm=TRUE){
     ## Do block 1 explicitly (since no parents)
     b <- cumsum(unlist(lapply(blocks, length)))
     corr.part <- -cov2cor(solve(S[1:b[1],1:b[1]]))
-    pvals[1:b[1],1:b[1]] <- simpvalueMx(corr.part,n-b[1]-1)
+    pvals[1:b[1],1:b[1]] <- simpvalueMx(corr.part,n-b[1]-1,p)
     ## Loop thru blocks 2 to q
     if(q==1){
       return(zapsmall(pvals[old.order,old.order]))
@@ -61,7 +61,7 @@ sinCG <- function(blocks, S, n, type="AMP", holm=TRUE){
         ## block i vs past i
         corr.part <- -cov2cor(solve(S[1:b[i],1:b[i]]))
         pvals[(b[i-1]+1):b[i],1:b[i]] <-
-          simpvalueMx(corr.part,n-b[i]-1)[(b[i-1]+1):b[i],1:b[i]]
+          simpvalueMx(corr.part,n-b[i]-1,p)[(b[i-1]+1):b[i],1:b[i]]
         pvals[1:b[i],(b[i-1]+1):b[i]] <- t(pvals[(b[i-1]+1):b[i],1:b[i]])
       }
       return(zapsmall(pvals[old.order,old.order]))
@@ -97,13 +97,15 @@ plotCGpvalues <- function(blocks, pvals, legend=TRUE, legendpos=NULL){
     q <- length(blocks)
     b <- cumsum(unlist(lapply(blocks, length)))
     pvec <- c()
+    oo <- unlist(blocks)
+    pvals <- pvals[oo,oo]
     ## Block 1 first
     if(b[1]>=2){
       for(j in 1:(b[1]-1)){
         pvec <- c(pvec, pvals[j,(j+1):b[1]])
       }
     }
-    ## Blocks 2 trhu q
+    ## Blocks 2 thru q
     for(i in 2:q){
       ## directed edges 
       for(j in (b[i-1]+1):b[i]){
@@ -136,7 +138,7 @@ plotCGpvalues <- function(blocks, pvals, legend=TRUE, legendpos=NULL){
         }
       }
     }
-    ## Blocks 2 trhu q
+    ## Blocks 2 thru q
     for(i in 2:q){
       ## directed edges 
       for(j in (b[i-1]+1):b[i]){
@@ -187,8 +189,9 @@ plotCGpvalues <- function(blocks, pvals, legend=TRUE, legendpos=NULL){
       plotlabels <- c(plotlabels, paste(letters[i],j,sep="" ))
     }
   }
+  oo <- unlist(blocks)
   for(i in 1:length(plotlabels)){
-    plotlabels[i] <- paste(plotlabels[i],dimnames(pvals)[[1]][i], sep="  ")
+    plotlabels[i] <- paste(plotlabels[i],dimnames(pvals[oo,oo])[[1]][i], sep="  ")
   }
   if(legend==TRUE){
     if(is.null(legendpos)){

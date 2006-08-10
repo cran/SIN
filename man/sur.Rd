@@ -24,7 +24,7 @@ covariates (\eqn{X_1}, \eqn{X_2}). The sample is only of size 8.
 \source{
   Drton, M. \& Richardson, T.S.  (2004) Multimodality of the likelihood
   in the bivariate seemingly unrelated regressions
-  model. \emph{Biometrika}, to appear.
+  model. \emph{Biometrika} 91(2): 383-392.
 }
 \examples{
 data(sur)

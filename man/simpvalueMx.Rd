@@ -5,25 +5,23 @@
   Simultaneous p-values are computed for a correlation matrix. Function
   only for internal use.
 }
-\usage{simpvalueMx(corr,n)}
+\usage{simpvalueMx(corr,n,p)}
 \arguments{
   \item{corr}{a correlation matrix.}
   \item{n}{the sample size.}
+  \item{p}{the number of variables used for p-value adjustment.}
 }
 \value{
   A matrix of simultaneous p-values with \code{NA} on the diagonal.
 }
 \references{
   Drton, M. \& Perlman, M.D.  (2004)  Model Selection for Gaussian
-  Concentration Graphs. \emph{Biometrika}, to appear.
+  Concentration Graphs. \emph{Biometrika}  91(3): 591-602.
   \cr\cr
   Drton, M. \& Perlman, M.D.  (2004)  A SINful Approach to Gaussian
-  Graphical Model Selection.  \emph{Statistical Science}, to appear.
-  \cr\cr
-  Drton, M. \& Perlman, M.D.  (2003)  A SINful Approach to Model
-  Selection for Gaussian Concentration Graphs. Department of
-  Statistics, University of Washington, Technical Report 429.\cr
-  \url{http://www.stat.washington.edu/www/research/reports/2003/tr429.pdf}
+  Graphical Model Selection.  Department of
+  Statistics, University of Washington, Technical Report 457.\cr
+  \url{http://www.stat.washington.edu/www/research/reports/2004/tr457.pdf}
 }
 \seealso{
   \code{\link{simpvalueVec}}
@@ -33,7 +31,8 @@ data(fowlbones)
 temp <- -solve(fowlbones$corr)
 diag(temp) <- abs(diag(temp))
 temp <- cov2cor(temp)
-round( simpvalueMx(temp,fowlbones$n), 2)
+p <- dim(temp)[1]
+round( simpvalueMx(temp,fowlbones$n,p), 2)
 }
 \keyword{internal}
 

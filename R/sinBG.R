@@ -1,5 +1,6 @@
 sinBG <- function(S,n,holm=TRUE){
-  pvals <- simpvalueMx(cov2cor(S), n-3)
+  p <- dim(S)[1]
+  pvals <- simpvalueMx(cov2cor(S), n-3, p)
   dimnames(pvals) <- dimnames(S)
   if(holm==TRUE) pvals <- holm(pvals)
   return(zapsmall(pvals))

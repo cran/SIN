@@ -31,19 +31,19 @@ simpvalueVec <- function(corrs,n,p){
     temp <- 1- ( 2*temp -1 )^(p*(p-1)/2)
     return(temp)
 }
-simpvalueMx <- function(corr,n){
+simpvalueMx <- function(corr,n,p){
   if(is.matrix(corr)){
-    p <- dim(corr)[1]
+    pp <- dim(corr)[1]
   }
   else{
-    p <- 1
+    pp <- 1
   }
-  if(p==1){
+  if(pp==1){
     return(matrix(NA, 1,1))
   }
   else{
     temp <- simpvalueVec(c(corr),n,p)
-    temp <- matrix(temp, p,p)
+    temp <- matrix(temp, pp,pp)
     diag(temp) <- NA
     return(temp)
   }
@@ -107,5 +107,3 @@ getgraph <- function(pvals, alpha, type="UG", blocks=NULL){
   }
 }
 #### END FUNCTIONS ###########
-
-

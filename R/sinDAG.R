@@ -10,21 +10,13 @@ sinDAG <- function(order, S, n, holm=TRUE){
   for(i in 2:p){
     corr.part <- -cov2cor(solve(S[1:i,1:i]))
     pvals[i,1:(i-1)] <- pvals[1:(i-1),i] <-
-      simpvalueVec(c(corr.part[i,1:(i-1)]),n-i-1,i)
+      simpvalueVec(c(corr.part[i,1:(i-1)]),n-i-1,p)
   }
   for(i in 1:p) pvals[i,i] <- NA
   if(holm==TRUE) pvals <- holm(pvals)
   return(zapsmall(pvals[old.order,old.order]))
 }
 plotDAGpvalues <- function(pvals, legend=TRUE, legendpos=NULL){
-#   vecDAGpvalues <- function(pvals){
-#     p <- dim(pvals)[1]
-#     pvec <- c()
-#     for(i in 2:p){
-#       pvec <- c(pvec, pvals[1:(i-1),i])
-#     }
-#     return(pvec)
-#   }
   createDAGlabels <- function(pvals){
     p <- dim(pvals)[1]
     labels <- c()
@@ -37,7 +29,7 @@ plotDAGpvalues <- function(pvals, legend=TRUE, legendpos=NULL){
   }
   par(mar=c(6,5,2,2)+0.1)
   DAGlab <- createDAGlabels(pvals)
-  DAGpvals <- pvals[upper.tri(pvals)] #vecDAGpvalues(pvals)
+  DAGpvals <- pvals[upper.tri(pvals)] 
   temp <- length(DAGlab)
   plot(as.factor(1:temp), DAGpvals, type="n",
        ylab="P-value", xlab="", axes=FALSE, ylim=c(0,1), cex.lab=1.2, las=2)

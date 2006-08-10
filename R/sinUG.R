@@ -1,6 +1,6 @@
 sinUG <- function(S,n, holm=TRUE){
   p <- dim(S)[1]
-  pvals <- simpvalueMx(-cov2cor(solve(S)), n-p-1)
+  pvals <- simpvalueMx(-cov2cor(solve(S)), n-p-1, p)
   dimnames(pvals) <- dimnames(S)
   if(holm==TRUE) pvals <- holm(pvals)
   return(zapsmall(pvals))
