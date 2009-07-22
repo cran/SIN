@@ -19,10 +19,9 @@
   Drton, M. \& Perlman, M.D.  (2004)  Model Selection for Gaussian
   Concentration Graphs. \emph{Biometrika}  91(3): 591-602.
   \cr\cr
-  Drton, M. \& Perlman, M.D.  (2004)  A SINful Approach to Gaussian
-  Graphical Model Selection.  Department of
-  Statistics, University of Washington, Technical Report 457.\cr
-  \url{http://www.stat.washington.edu/www/research/reports/2004/tr457.pdf}
+  Drton, M. \& Perlman, M.D.  (2008)  A SINful Approach to Gaussian
+  Graphical Model Selection.  \emph{J. Statist. Plann. Inference}
+  138(4): 1179-1200.
 }
 \seealso{
   \code{\link{plotUGpvalues}}

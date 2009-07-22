@@ -19,8 +19,8 @@ moth                    Noctuid Moth Trappings
 plotBGpvalues           Plot simultaneous p-values for bidirected
                         graphs
 plotCGpvalues           Plot simultaneous p-values for chain graphs
-plotDAGpvalues          Plot simultaneous p-values for acyclic
-                        directed graphs
+plotDAGpvalues          Plot simultaneous p-values for acyclic directed
+                        graphs
 plotUGpvalues           Plot simultaneous p-values for undirected
                         graphs
 pubprod                 Publishing productivity
