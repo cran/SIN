@@ -3,7 +3,7 @@ anxietyanger <-
                    c(18.87,15.23,21.20,23.42),
                    names=c("Anxiety st","Anger st","Anxiety tr","Anger tr")),
                  stddev = structure(
-                   c(18.87,15.23,21.20,23.42),
+                   c(6.10,6.70,5.68,6.57),
                    names=c("Anxiety st","Anger st","Anxiety tr","Anger tr")),
                  corr = structure(matrix(c(
                    1   , 0.61, 0.62, 0.39,
